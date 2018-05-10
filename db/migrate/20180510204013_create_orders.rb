@@ -5,6 +5,7 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.references :customer, foreign_key: true
       t.integer :quantity
       t.references :order_status, foreign_key: true
+      t.references :restaurant, foreign_key: true
       t.decimal :total
 
       t.timestamps

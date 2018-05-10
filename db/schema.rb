@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2018_05_10_204013) do
   create_table "menu_items", force: :cascade do |t|
     t.string "item_name"
     t.text "description"
-    t.text "ingredients"
     t.decimal "price"
     t.string "image_url"
     t.integer "quantity"
@@ -43,12 +42,14 @@ ActiveRecord::Schema.define(version: 2018_05_10_204013) do
     t.integer "customer_id"
     t.integer "quantity"
     t.integer "order_status_id"
+    t.integer "restaurant_id"
     t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["menu_item_id"], name: "index_orders_on_menu_item_id"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
