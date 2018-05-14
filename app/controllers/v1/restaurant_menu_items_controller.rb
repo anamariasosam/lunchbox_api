@@ -23,7 +23,7 @@ module V1
       if @menu_item.save
         render json: @menu_item, status: :created
       else
-        render json: @menu_item.errors, status: :unprocessable_entity
+        render json: { error: @menu_item.errors}, status: :unprocessable_entity
       end
     end
 
@@ -32,7 +32,7 @@ module V1
       if @menu_item.update(menu_item_params)
         render json: @menu_item
       else
-        render json: @menu_item.errors, status: :unprocessable_entity
+        render json: { error: @menu_item.errors}, status: :unprocessable_entity
       end
     end
 
@@ -49,7 +49,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def menu_item_params
-        params.permit(:item_name, :description, :ingredients, :price, :imageUrl, :quantity, :restaurant_id)
+        params.permit(:item_name, :description, :ingredients, :price, :image_url, :quantity, :restaurant_id)
       end
   end
 end

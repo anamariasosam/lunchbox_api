@@ -21,7 +21,7 @@ module V1
       if @customer.save
         render json: @customer, status: :created
       else
-        render json: @customer.errors, status: :unprocessable_entity
+        render json: { error: @customer.errors}, status: :unprocessable_entity
       end
     end
 
@@ -30,7 +30,7 @@ module V1
       if @customer.update(customer_params)
         render json: @customer
       else
-        render json: @customer.errors, status: :unprocessable_entity
+        render json: { error: @customer.errors}, status: :unprocessable_entity
       end
     end
 

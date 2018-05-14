@@ -29,7 +29,7 @@ module V1
           )
         render json: @order, status: :created
       else
-        render json: @order.errors, status: :unprocessable_entity
+        render json: { error: @order.errors}, status: :unprocessable_entity
       end
     end
 
@@ -38,7 +38,7 @@ module V1
       if @order.update(order_params)
         render json: @order
       else
-        render json: @order.errors, status: :unprocessable_entity
+        render json: { error: @order.errors}, status: :unprocessable_entity
       end
     end
 

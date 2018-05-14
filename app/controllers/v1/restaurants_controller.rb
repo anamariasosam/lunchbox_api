@@ -21,7 +21,7 @@ module V1
       if @restaurant.save
         render json: @restaurant, status: :created
       else
-        render json: @restaurant.errors, status: :unprocessable_entity
+        render json: { error: @restaurant.errors}, status: :unprocessable_entity
       end
     end
 
@@ -30,7 +30,7 @@ module V1
       if @restaurant.update(restaurant_params)
         render json: @restaurant
       else
-        render json: @restaurant.errors, status: :unprocessable_entity
+        render json: { error: @restaurant.errors}, status: :unprocessable_entity
       end
     end
 
