@@ -19,7 +19,7 @@ module V1
       @restaurant = Restaurant.new(restaurant_params)
 
       if @restaurant.save
-        render json: @restaurant, status: :created, location: @restaurant
+        render json: @restaurant, status: :created
       else
         render json: @restaurant.errors, status: :unprocessable_entity
       end
@@ -47,7 +47,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def restaurant_params
-        params.require(:restaurant).permit(:name, :image_url, :location, :min_price, :max_price)
+        params.permit(:name, :image_url, :location, :min_price, :max_price)
       end
   end
 end
