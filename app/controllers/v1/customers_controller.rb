@@ -19,7 +19,7 @@ module V1
       @customer = Customer.new(customer_params)
 
       if @customer.save
-        render json: @customer, status: :created, location: @customer
+        render json: @customer, status: :created
       else
         render json: @customer.errors, status: :unprocessable_entity
       end
@@ -47,7 +47,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def customer_params
-        params.require(:customer).permit(:name, :phone_number)
+        params.permit(:name, :phone_number)
       end
   end
 end

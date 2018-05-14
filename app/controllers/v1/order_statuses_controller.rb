@@ -19,7 +19,7 @@ module V1
       @order_status = OrderStatus.new(order_status_params)
 
       if @order_status.save
-        render json: @order_status, status: :created, location: @order_status
+        render json: @order_status, status: :created
       else
         render json: @order_status.errors, status: :unprocessable_entity
       end
@@ -47,7 +47,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def order_status_params
-        params.require(:order_status).permit(:description)
+        params.permit(:description)
       end
   end
 end
