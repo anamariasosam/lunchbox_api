@@ -27,7 +27,7 @@ MenuItem.create([
     item_name: "Papas Mexicanas",
     description: "Pico de gallo, guacamole, sour cream",
     price: 13500,
-    image_url: "",
+    image_url: "https://source.unsplash.com/400x200/",
     quantity: 100,
     restaurant_id: 1
   },
@@ -35,7 +35,7 @@ MenuItem.create([
     item_name: "Bandeja Paisa",
     description: "fríjoles, arroz, carne molida",
     price: 7500,
-    image_url: "",
+    image_url: "https://source.unsplash.com/400x200/",
     quantity: 100,
     restaurant_id: 2
   },
@@ -43,7 +43,7 @@ MenuItem.create([
     item_name: "Pizza Hawaina",
     description: "Jamón, Piña, Queso",
     price: 5500,
-    image_url: "",
+    image_url: "https://source.unsplash.com/400x200/",
     quantity: 100,
     restaurant_id: 3
   },
@@ -91,9 +91,6 @@ Order.create([
   {
     menu_item_id: 1,
     customer_id: 4,
-    restaurant_id: 1,
     quantity: 2,
-    order_status_id: 1,
-    total: 13500,
   }
 ])
