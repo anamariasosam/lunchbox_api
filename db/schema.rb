@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2018_05_10_204013) do
     t.integer "menu_item_id"
     t.integer "customer_id"
     t.integer "quantity"
-    t.integer "order_status_id"
+    t.integer "order_status_id", default: 1
     t.integer "restaurant_id"
     t.decimal "total"
     t.datetime "created_at", null: false
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2018_05_10_204013) do
     t.integer "max_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "instructions"
   end
 
 end
