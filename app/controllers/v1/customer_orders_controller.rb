@@ -1,20 +1,20 @@
 module V1
-  class OrdersController < ApplicationController
-    before_action :set_order, only: [:show, :update, :destroy]
+  class CustomerOrdersController < ApplicationController
+    before_action :set_order, only: [:show, :destroy]
 
-    # GET /orders
+    # GET /v1/customers/:customer_id/orders
     def index
-      @orders = Order.all
+      @customer = Customer.find(params[:customer_id])
 
-      render json: @orders
+      render json: @customer.orders.all
     end
 
-    # GET /orders/1
+    # GET /v1/customers/:customer_id/orders/1
     def show
       render json: @order
     end
 
-    # POST /orders
+    # POST /v1/customers/:customer_id/orders
     def create
       @order = Order.new(order_params)
 
@@ -31,19 +31,11 @@ module V1
       end
     end
 
-    # PATCH/PUT /orders/1
-    def update
-      if @order.update(order_params)
-        render json: @order
-      else
-        render json: { error: @order.errors}, status: :unprocessable_entity
-      end
-    end
 
-    # DELETE /orders/1
+    # DELETE /v1/customers/:customer_id/orders/1
     def destroy
       if @order.destroy
-        render json: @order, status: :ok
+        render json: { id: @order.id, deleted: ":("}, status: :ok
       else
         render json: { error: @order.errors}, status: :unprocessable_entity
       end
@@ -52,7 +44,8 @@ module V1
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_order
-        @order = Order.find(params[:id])
+        @customer = Customer.find(params[:customer_id])
+        @order = @customer.orders.find(params[:id])
       end
 
       def fill_data

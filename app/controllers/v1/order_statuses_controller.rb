@@ -2,19 +2,19 @@ module V1
   class OrderStatusesController < ApplicationController
     before_action :set_order_status, only: [:show, :update, :destroy]
 
-    # GET /order_statuses
+    # GET /v1/order_statuses
     def index
       @order_statuses = OrderStatus.all
 
       render json: @order_statuses
     end
 
-    # GET /order_statuses/1
+    # GET /v1/order_statuses/1
     def show
       render json: @order_status
     end
 
-    # POST /order_statuses
+    # POST /v1/order_statuses
     def create
       @order_status = OrderStatus.new(order_status_params)
 
@@ -25,7 +25,7 @@ module V1
       end
     end
 
-    # PATCH/PUT /order_statuses/1
+    # PATCH/PUT /v1/order_statuses/1
     def update
       if @order_status.update(order_status_params)
         render json: @order_status
@@ -34,9 +34,13 @@ module V1
       end
     end
 
-    # DELETE /order_statuses/1
+    # DELETE /v1/order_statuses/1
     def destroy
-      @order_status.destroy
+      if @order_status.destroy
+        render json: { id: @order_status.id, deleted: ":("}, status: :ok
+      else
+        render json: { error: @order_status.errors}, status: :unprocessable_entity
+      end
     end
 
     private

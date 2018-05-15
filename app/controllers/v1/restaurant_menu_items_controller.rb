@@ -2,21 +2,19 @@ module V1
   class RestaurantMenuItemsController < ApplicationController
     before_action :set_menu_item, only: [:show, :update, :destroy]
 
-    # GET /menu_items
+    # GET /v1/restaurants/:restaurant_id/menu_items
     def index
       @restaurant = Restaurant.find(params[:restaurant_id])
 
-      @menu_items = @restaurant.menu_items
-
-      render json: @menu_items
+      render json: @restaurant.menu_items
     end
 
-    # GET /menu_items/1
+    # GET /v1/restaurants/:restaurant_id/menu_items/1
     def show
       render json: @menu_item
     end
 
-    # POST /menu_items
+    # POST /v1/restaurants/:restaurant_id/menu_items
     def create
       @menu_item = MenuItem.new(menu_item_params)
 
@@ -27,7 +25,7 @@ module V1
       end
     end
 
-    # PATCH/PUT /menu_items/1
+    # PATCH/PUT /v1/restaurants/:restaurant_id/menu_items/1
     def update
       if @menu_item.update(menu_item_params)
         render json: @menu_item
@@ -36,15 +34,20 @@ module V1
       end
     end
 
-    # DELETE /menu_items/1
+    # DELETE /v1/restaurants/:restaurant_id/menu_items/1
     def destroy
-      @menu_item.destroy
+      if @menu_item.destroy
+        render json: { id: @menu_item.id, deleted: ":("}, status: :ok
+      else
+        render json: { error: @menu_item.errors}, status: :unprocessable_entity
+      end
     end
 
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_menu_item
-        @menu_item = MenuItem.find(params[:id])
+        @restaurant = Restaurant.find(params[:restaurant_id])
+        @menu_item = @restaurant.menu_items.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

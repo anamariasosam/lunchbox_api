@@ -1,6 +1,5 @@
 module V1
   class MenuItemsController < ApplicationController
-
     # GET /v1/menu_items
     def index
       @menu_items = MenuItem.all
@@ -12,6 +11,5 @@ module V1
       @menu_item = MenuItem.find(params[:id])
       render json: @menu_item
     end
-
   end
 end

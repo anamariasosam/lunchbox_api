@@ -5,7 +5,6 @@ class Order < ApplicationRecord
   belongs_to :order_status
 
   validates_presence_of :quantity,
-                        :menu_item_id,
-                        :customer_id
+                        :menu_item_id
   validates_numericality_of :quantity, greater_than: 0
 end

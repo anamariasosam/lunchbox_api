@@ -36,7 +36,11 @@ module V1
 
     # DELETE /customers/1
     def destroy
-      @customer.destroy
+      if @customer.destroy
+        render json: { id: @customer.id, deleted: ":("}, status: :ok
+      else
+        render json: { error: @customer.errors}, status: :unprocessable_entity
+      end
     end
 
     private

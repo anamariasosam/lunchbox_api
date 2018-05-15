@@ -2,19 +2,19 @@ module V1
   class RestaurantsController < ApplicationController
     before_action :set_restaurant, only: [:show, :update, :destroy]
 
-    # GET /restaurants
+    # GET /v1/restaurants
     def index
       @restaurants = Restaurant.all
 
       render json: @restaurants
     end
 
-    # GET /restaurants/1
+    # GET /v1/restaurants/1
     def show
       render json: @restaurant
     end
 
-    # POST /restaurants
+    # POST /v1/restaurants
     def create
       @restaurant = Restaurant.new(restaurant_params)
 
@@ -25,7 +25,7 @@ module V1
       end
     end
 
-    # PATCH/PUT /restaurants/1
+    # PATCH/PUT /v1/restaurants/1
     def update
       if @restaurant.update(restaurant_params)
         render json: @restaurant
@@ -34,9 +34,13 @@ module V1
       end
     end
 
-    # DELETE /restaurants/1
+    # DELETE /v1/restaurants/1
     def destroy
-      @restaurant.destroy
+      if @restaurant.destroy
+        render json: { id: @restaurant.id, deleted: ":("}, status: :ok
+      else
+        render json: { error: @restaurant.errors}, status: :unprocessable_entity
+      end
     end
 
     private
