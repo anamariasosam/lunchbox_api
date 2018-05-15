@@ -1,8 +1,11 @@
 class Order < ApplicationRecord
   belongs_to :menu_item
+  belongs_to :restaurant, optional: true
   belongs_to :customer
   belongs_to :order_status
 
-  validates_presence_of :menu_item_id, :customer_id, :quantity
-  validates_numericality_of :quantity
+  validates_presence_of :quantity,
+                        :menu_item_id,
+                        :customer_id
+  validates_numericality_of :quantity, greater_than: 0
 end

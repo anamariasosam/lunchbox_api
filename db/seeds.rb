@@ -86,11 +86,3 @@ OrderStatus.create([
     description: "Entregada"
   }
 ])
-
-Order.create([
-  {
-    menu_item_id: 1,
-    customer_id: 4,
-    quantity: 2,
-  }
-])

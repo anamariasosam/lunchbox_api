@@ -1,7 +1,6 @@
 module V1
   class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :update, :destroy]
-    before_action :set_item, only: [:create]
 
     # GET /orders
     def index
@@ -19,9 +18,8 @@ module V1
     def create
       @order = Order.new(order_params)
 
-      fill_data
-
       if @order.save
+        fill_data
         @menu_item
           .update_attribute(
             :quantity,
@@ -44,7 +42,11 @@ module V1
 
     # DELETE /orders/1
     def destroy
-      @order.destroy
+      if @order.destroy
+        render json: @order, status: :ok
+      else
+        render json: { error: @order.errors}, status: :unprocessable_entity
+      end
     end
 
     private
@@ -53,18 +55,16 @@ module V1
         @order = Order.find(params[:id])
       end
 
-      def set_item
-        @menu_item = MenuItem.find(params[:menu_item_id])
-      end
-
       def fill_data
+        @menu_item = MenuItem.find(params[:menu_item_id])
         @order.restaurant_id = @menu_item.restaurant.id
         @order.total = @menu_item.price * @order.quantity
+        @order.save
       end
 
       # Only allow a trusted parameter "white list" through.
       def order_params
-        params.permit(:menu_item_id, :customer_id, :quantity, :order_status_id, :total)
+        params.permit(:menu_item_id, :customer_id, :quantity, :order_status_id)
       end
   end
 end
